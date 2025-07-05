@@ -1,9 +1,9 @@
-package com.example.securitywithredis.domain.auth.service;
+package com.example.fittoserver.domain.auth.service;
 
-import com.example.securitywithredis.global.common.api.status.ErrorStatus;
-import com.example.securitywithredis.global.exception.GeneralException;
-import com.example.securitywithredis.domain.auth.jwt.JWTUtil;
-import com.example.securitywithredis.global.common.util.CookieUtil;
+import com.example.fittoserver.global.common.api.status.ErrorStatus;
+import com.example.fittoserver.global.exception.GeneralException;
+import com.example.fittoserver.domain.auth.jwt.JWTUtil;
+import com.example.fittoserver.global.common.util.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

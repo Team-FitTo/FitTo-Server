@@ -1,7 +1,7 @@
-package com.example.securitywithredis.domain.auth.security;
+package com.example.fittoserver.domain.auth.security;
 
-import com.example.securitywithredis.domain.user.UserEntity;
-import com.example.securitywithredis.domain.user.enums.AccountStatus;
+import com.example.fittoserver.domain.user.UserEntity;
+import com.example.fittoserver.domain.user.enums.AccountStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;

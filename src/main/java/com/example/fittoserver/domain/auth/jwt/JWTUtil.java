@@ -1,4 +1,4 @@
-package com.example.securitywithredis.domain.auth.jwt;
+package com.example.fittoserver.domain.auth.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

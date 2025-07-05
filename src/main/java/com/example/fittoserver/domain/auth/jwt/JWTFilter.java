@@ -1,9 +1,9 @@
-package com.example.securitywithredis.domain.auth.jwt;
+package com.example.fittoserver.domain.auth.jwt;
 
-import com.example.securitywithredis.global.common.api.status.ErrorStatus;
-import com.example.securitywithredis.global.exception.GeneralException;
-import com.example.securitywithredis.domain.user.UserEntity;
-import com.example.securitywithredis.domain.auth.security.CustomUserDetails;
+import com.example.fittoserver.global.common.api.status.ErrorStatus;
+import com.example.fittoserver.global.exception.GeneralException;
+import com.example.fittoserver.domain.user.UserEntity;
+import com.example.fittoserver.domain.auth.security.CustomUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

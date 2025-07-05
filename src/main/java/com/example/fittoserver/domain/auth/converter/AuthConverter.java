@@ -1,8 +1,8 @@
-package com.example.securitywithredis.domain.auth.converter;
+package com.example.fittoserver.domain.auth.converter;
 
-import com.example.securitywithredis.domain.auth.dto.AuthResponseDTO;
-import com.example.securitywithredis.domain.auth.security.CustomUserDetails;
-import com.example.securitywithredis.domain.user.UserEntity;
+import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
+import com.example.fittoserver.domain.auth.security.CustomUserDetails;
+import com.example.fittoserver.domain.user.UserEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

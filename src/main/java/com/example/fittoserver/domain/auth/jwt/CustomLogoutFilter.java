@@ -1,8 +1,8 @@
-package com.example.securitywithredis.domain.auth.jwt;
+package com.example.fittoserver.domain.auth.jwt;
 
-import com.example.securitywithredis.global.common.api.status.ErrorStatus;
-import com.example.securitywithredis.global.exception.GeneralException;
-import com.example.securitywithredis.domain.auth.service.RefreshTokenService;
+import com.example.fittoserver.global.common.api.status.ErrorStatus;
+import com.example.fittoserver.global.exception.GeneralException;
+import com.example.fittoserver.domain.auth.service.RefreshTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

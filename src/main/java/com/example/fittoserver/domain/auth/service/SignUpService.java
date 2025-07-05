@@ -1,11 +1,11 @@
-package com.example.securitywithredis.domain.auth.service;
+package com.example.fittoserver.domain.auth.service;
 
-import com.example.securitywithredis.domain.auth.dto.AuthRequestDTO;
-import com.example.securitywithredis.domain.user.service.UserService;
-import com.example.securitywithredis.global.common.api.status.ErrorStatus;
-import com.example.securitywithredis.global.exception.GeneralException;
-import com.example.securitywithredis.domain.user.converter.UserConverter;
-import com.example.securitywithredis.domain.user.UserEntity;
+import com.example.fittoserver.domain.auth.dto.AuthRequestDTO;
+import com.example.fittoserver.domain.user.service.UserService;
+import com.example.fittoserver.global.common.api.status.ErrorStatus;
+import com.example.fittoserver.global.exception.GeneralException;
+import com.example.fittoserver.domain.user.converter.UserConverter;
+import com.example.fittoserver.domain.user.UserEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

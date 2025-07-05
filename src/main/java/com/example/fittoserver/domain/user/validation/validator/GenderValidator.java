@@ -1,7 +1,7 @@
-package com.example.securitywithredis.domain.user.validation.validator;
+package com.example.fittoserver.domain.user.validation.validator;
 
-import com.example.securitywithredis.domain.user.enums.Gender;
-import com.example.securitywithredis.domain.user.validation.annotation.GenderValid;
+import com.example.fittoserver.domain.user.enums.Gender;
+import com.example.fittoserver.domain.user.validation.annotation.GenderValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;

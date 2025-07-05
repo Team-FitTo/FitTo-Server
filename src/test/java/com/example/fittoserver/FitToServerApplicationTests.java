@@ -1,10 +1,10 @@
-package com.example.securitywithredis;
+package com.example.fittoserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SecurityWithRedisApplicationTests {
+class FitToServerApplicationTests {
 
     @Test
     void contextLoads() {

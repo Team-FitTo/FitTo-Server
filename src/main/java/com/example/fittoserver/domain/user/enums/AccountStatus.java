@@ -1,4 +1,4 @@
-package com.example.securitywithredis.domain.user.enums;
+package com.example.fittoserver.domain.user.enums;
 
 public enum AccountStatus {
     ACTIVE,         // 활성

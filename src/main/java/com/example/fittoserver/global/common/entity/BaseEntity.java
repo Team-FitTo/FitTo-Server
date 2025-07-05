@@ -1,4 +1,4 @@
-package com.example.securitywithredis.global.common.entity;
+package com.example.fittoserver.global.common.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

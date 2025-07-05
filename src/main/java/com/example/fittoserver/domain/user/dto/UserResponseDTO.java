@@ -1,4 +1,4 @@
-package com.example.securitywithredis.domain.user.dto;
+package com.example.fittoserver.domain.user.dto;
 
 public class UserResponseDTO {
 

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SecurityWithRedis
+    name: FitToServer
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

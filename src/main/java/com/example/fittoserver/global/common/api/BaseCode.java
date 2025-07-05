@@ -1,4 +1,4 @@
-package com.example.securitywithredis.global.common.api;
+package com.example.fittoserver.global.common.api;
 
 public interface BaseCode {
 

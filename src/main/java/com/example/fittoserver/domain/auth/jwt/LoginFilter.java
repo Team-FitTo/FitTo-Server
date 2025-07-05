@@ -1,12 +1,12 @@
-package com.example.securitywithredis.domain.auth.jwt;
+package com.example.fittoserver.domain.auth.jwt;
 
-import com.example.securitywithredis.domain.auth.converter.AuthConverter;
-import com.example.securitywithredis.domain.auth.dto.AuthRequestDTO;
-import com.example.securitywithredis.domain.auth.dto.AuthResponseDTO;
-import com.example.securitywithredis.domain.auth.security.CustomUserDetails;
-import com.example.securitywithredis.global.common.api.ApiResponse;
-import com.example.securitywithredis.global.common.util.CookieUtil;
-import com.example.securitywithredis.global.common.util.RefreshUtil;
+import com.example.fittoserver.domain.auth.converter.AuthConverter;
+import com.example.fittoserver.domain.auth.dto.AuthRequestDTO;
+import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
+import com.example.fittoserver.domain.auth.security.CustomUserDetails;
+import com.example.fittoserver.global.common.api.ApiResponse;
+import com.example.fittoserver.global.common.util.CookieUtil;
+import com.example.fittoserver.global.common.util.RefreshUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 

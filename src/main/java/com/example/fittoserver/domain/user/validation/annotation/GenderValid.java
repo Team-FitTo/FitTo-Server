@@ -1,6 +1,6 @@
-package com.example.securitywithredis.domain.user.validation.annotation;
+package com.example.fittoserver.domain.user.validation.annotation;
 
-import com.example.securitywithredis.domain.user.validation.validator.GenderValidator;
+import com.example.fittoserver.domain.user.validation.validator.GenderValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;

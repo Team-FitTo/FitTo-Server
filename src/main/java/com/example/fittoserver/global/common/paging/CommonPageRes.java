@@ -1,4 +1,4 @@
-package com.example.securitywithredis.global.common.paging;
+package com.example.fittoserver.global.common.paging;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

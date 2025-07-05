@@ -1,7 +1,7 @@
-package com.example.securitywithredis.global.exception;
+package com.example.fittoserver.global.exception;
 
-import com.example.securitywithredis.global.common.api.BaseCode;
-import com.example.securitywithredis.global.common.api.ResponseDTO;
+import com.example.fittoserver.global.common.api.BaseCode;
+import com.example.fittoserver.global.common.api.ResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
