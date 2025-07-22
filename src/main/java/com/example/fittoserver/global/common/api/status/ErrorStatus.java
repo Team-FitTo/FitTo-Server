@@ -15,6 +15,7 @@ public enum ErrorStatus implements BaseCode {
     _BAD_REQUEST(HttpStatus.BAD_REQUEST,"COMMON400","잘못된 요청입니다."),
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
+    _PARSING_ERROR(HttpStatus.FORBIDDEN, "COMMON500", "JSON 파싱 에러."),
 
 
     // 멤버 관려 에러

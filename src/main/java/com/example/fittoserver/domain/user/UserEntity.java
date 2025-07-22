@@ -2,7 +2,6 @@ package com.example.fittoserver.domain.user;
 
 import com.example.fittoserver.global.common.entity.BaseEntity;
 import com.example.fittoserver.domain.user.enums.AccountStatus;
-import com.example.fittoserver.domain.user.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -21,11 +20,8 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 40)
-    private String username; // 실제로는 email값이 들어감
-
-    @Column(nullable = false)
-    private String password;
+    @Column(nullable = false, unique = true)
+    private Long kakaoId;
 
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ROLE_USER'")
     private String role;
@@ -33,11 +29,4 @@ public class UserEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private AccountStatus accountStatus;
-
-    @Column(nullable = false, length = 20)
-    private String nickname;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
 }

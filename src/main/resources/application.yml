@@ -22,6 +22,9 @@ spring:
   jwt:
     secret: qo0ZNtzizpcWq/E+Ou/FN8rcYDaycVNolSpOYhIPOOM=
 
+hashid:
+  salt: fitto
+
 springdoc:
   show-login-endpoint: true
 

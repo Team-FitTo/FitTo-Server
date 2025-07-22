@@ -1,7 +1,6 @@
 package com.example.fittoserver.domain.auth.converter;
 
 import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
-import com.example.fittoserver.domain.auth.security.CustomUserDetails;
 import com.example.fittoserver.domain.user.UserEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,14 +13,14 @@ public class AuthConverter {
         return dateTime.format(formatter);
     }
 
-    public static AuthResponseDTO.SignUpRes toSignUpResultDTO(UserEntity user){
+    public static AuthResponseDTO.SignUpRes toSignUpRes(UserEntity user){
         return AuthResponseDTO.SignUpRes.builder()
                 .memberId(user.getId())
                 .createAt(formatDateTime(user.getCreatedAt()))
                 .build();
     }
 
-    public static AuthResponseDTO.LoginRes toLoginRes(CustomUserDetails userDetail, String accessToken, String refreshToken){
+    public static AuthResponseDTO.LoginRes toLoginRes(UserEntity userDetail, String accessToken, String refreshToken){
         return AuthResponseDTO.LoginRes.builder()
                 .access(accessToken)
                 .refresh(refreshToken)
