@@ -21,13 +21,13 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class KakaoUtil {
 
-    @Value("${spring.kakao.auth.client-id}")
+    @Value("${spring.kakao.client-id}")
     private String clientId;
-    @Value("${spring.kakao.auth.redirect-uri}")
+    @Value("${spring.kakao.redirect-uri}")
     private String redirectUri;
-    @Value("${kakao.token-uri}")
+    @Value("${spring.kakao.token-uri}")
     private String tokenUri;
-    @Value("${kakao.user-info-uri}")
+    @Value("${spring.kakao.user-info-uri}")
     private String userInfoUri;
 
     public KakaoDTO.OAuthToken requestToken(String accessCode) {
@@ -44,7 +44,7 @@ public class KakaoUtil {
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "https://kauth.kakao.com/oauth/token",
+                tokenUri,
                 HttpMethod.POST,
                 kakaoTokenRequest,
                 String.class);
@@ -72,7 +72,7 @@ public class KakaoUtil {
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "https://kapi.kakao.com/v2/user/me",
+                userInfoUri,
                 HttpMethod.GET,
                 kakaoProfileRequest,
                 String.class);

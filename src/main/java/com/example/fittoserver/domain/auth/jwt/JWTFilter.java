@@ -44,9 +44,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
 
-        try {
-            jwtUtil.isExpired(token);
-        } catch (ExpiredJwtException e) {
+        if (!jwtUtil.isExpired(token)) {
             throw new GeneralException(ErrorStatus.ACCESS_TOKEN_EXPIRED);
         }
 

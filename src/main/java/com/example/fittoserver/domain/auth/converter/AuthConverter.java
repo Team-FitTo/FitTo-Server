@@ -13,13 +13,6 @@ public class AuthConverter {
         return dateTime.format(formatter);
     }
 
-    public static AuthResponseDTO.SignUpRes toSignUpRes(UserEntity user){
-        return AuthResponseDTO.SignUpRes.builder()
-                .memberId(user.getId())
-                .createAt(formatDateTime(user.getCreatedAt()))
-                .build();
-    }
-
     public static AuthResponseDTO.LoginRes toLoginRes(UserEntity userDetail, String accessToken, String refreshToken){
         return AuthResponseDTO.LoginRes.builder()
                 .access(accessToken)

@@ -31,16 +31,16 @@ public class ReissueService {
         // 유효성 검사 및 예외 발생
         refreshTokenService.validateRefreshToken(refresh);
 
-        String username = jwtUtil.getUsername(refresh);
+        String hashedUserId = jwtUtil.getUserId(refresh);
         String role = jwtUtil.getRole(refresh);
 
         // New JWT 생성
-        String newAccess = jwtUtil.createJwt("access", username, role, 600000L);
-        String newRefresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
+        String newAccess = jwtUtil.createJwt("access", hashedUserId, role, 600000L);
+        String newRefresh = jwtUtil.createJwt("refresh", hashedUserId, role, 86400000L);
 
         // Redis에서 기존 Refresh Token 삭제 및 새로 저장
-        refreshTokenService.removeRefreshToken(username); // Redis에서 기존 Refresh 토큰 제거
-        refreshTokenService.addRefreshToken(username, newRefresh, 86400000L); // 새 Refresh 토큰 저장
+        refreshTokenService.removeRefreshToken(hashedUserId); // Redis에서 기존 Refresh 토큰 제거
+        refreshTokenService.addRefreshToken(hashedUserId, newRefresh, 86400000L); // 새 Refresh 토큰 저장
 
         response.setHeader("Authorization", "Bearer " + newAccess);
         response.addCookie(CookieUtil.createCookie("refresh", newRefresh));
