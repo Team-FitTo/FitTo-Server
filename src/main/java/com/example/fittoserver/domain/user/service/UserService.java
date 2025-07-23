@@ -13,10 +13,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
-    }
-
     public UserEntity saveUser(UserEntity user) {
         return userRepository.save(user);
     }

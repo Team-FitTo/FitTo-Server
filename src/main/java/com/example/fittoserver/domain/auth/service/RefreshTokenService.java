@@ -45,10 +45,10 @@ public class RefreshTokenService {
                 throw new GeneralException(ErrorStatus.INVALID_REFRESH_TOKEN); // Refresh 토큰이 아닌 경우
             }
 
-            String username = jwtUtil.getUsername(refresh);
+            String hashedUserId = jwtUtil.getUserId(refresh);
 
             // Redis에서 존재 여부 확인
-            String storedRefreshToken = refreshUtil.getRefreshToken(username);
+            String storedRefreshToken = refreshUtil.getRefreshToken(hashedUserId);
             if (storedRefreshToken == null || !storedRefreshToken.equals(refresh)) {
                 throw new GeneralException(ErrorStatus.REFRESH_TOKEN_NOT_EXIST); // Redis에서 없거나 일치하지 않으면
             }
@@ -58,12 +58,12 @@ public class RefreshTokenService {
     }
 
     // Refresh Token을 Redis에서 제거
-    public void removeRefreshToken(String username) {
-        refreshUtil.removeRefreshToken(username); // Redis에서 제거
+    public void removeRefreshToken(String hashedUserId) {
+        refreshUtil.removeRefreshToken(hashedUserId); // Redis에서 제거
     }
 
     // Refresh Token을 Redis에 저장
-    public void addRefreshToken(String username, String refreshToken, long expirationTimeInMillis) {
-        refreshUtil.addRefreshToken(username, refreshToken, expirationTimeInMillis);
+    public void addRefreshToken(String hashedUserId, String refreshToken, long expirationTimeInMillis) {
+        refreshUtil.addRefreshToken(hashedUserId, refreshToken, expirationTimeInMillis);
     }
 }
