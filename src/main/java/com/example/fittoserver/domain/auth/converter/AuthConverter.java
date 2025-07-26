@@ -1,7 +1,7 @@
 package com.example.fittoserver.domain.auth.converter;
 
 import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
-import com.example.fittoserver.domain.user.UserEntity;
+import com.example.fittoserver.domain.user.entity.UserEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

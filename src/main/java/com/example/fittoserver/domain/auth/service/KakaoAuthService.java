@@ -5,15 +5,13 @@ import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
 import com.example.fittoserver.domain.auth.dto.KakaoDTO;
 import com.example.fittoserver.domain.auth.jwt.JWTUtil;
 import com.example.fittoserver.domain.auth.util.KakaoUtil;
-import com.example.fittoserver.domain.user.UserEntity;
+import com.example.fittoserver.domain.user.entity.UserEntity;
 import com.example.fittoserver.domain.user.converter.UserConverter;
 import com.example.fittoserver.domain.user.repository.UserRepository;
 import com.example.fittoserver.global.common.util.HashIdUtil;
 import com.example.fittoserver.global.common.util.RefreshUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
