@@ -23,7 +23,7 @@ public class KakaoAuthService {
     private final RefreshUtil refreshUtil;
     private final HashIdUtil hashIdUtil;
 
-    public AuthResponseDTO.LoginRes kakaoLogin(String accessCode) {
+    public AuthResponseDTO.LoginResult kakaoLogin(String accessCode) {
         KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
         KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
         Long kakaoProfileId = kakaoProfile.getId();
@@ -38,7 +38,7 @@ public class KakaoAuthService {
 
         refreshUtil.addRefreshToken(hashedUserId, refresh, 86_400_000L);
 
-        return AuthConverter.toLoginRes(user, access, refresh);
+        return new AuthResponseDTO.LoginResult(AuthConverter.toLoginRes(hashedUserId), access, refresh);
     }
 
     private UserEntity createNewUser(KakaoDTO.KakaoProfile kakaoProfile) {
