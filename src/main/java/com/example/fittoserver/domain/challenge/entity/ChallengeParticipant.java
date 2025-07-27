@@ -12,7 +12,7 @@ import java.time.Duration;
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Table(name = "challenge_participants")
 public class ChallengeParticipant extends BaseEntity {
 
