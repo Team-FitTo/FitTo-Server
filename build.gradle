@@ -47,6 +47,9 @@ dependencies {
 
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // Hashids
+    implementation 'org.hashids:hashids:1.0.3'
 }
 
 tasks.named('test') {

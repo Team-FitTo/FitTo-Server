@@ -49,9 +49,9 @@ public class CustomLogoutFilter extends GenericFilterBean {
         // 유효성 검사 및 예외 발생
         refreshTokenService.validateRefreshToken(refresh);
 
-        String username = jwtUtil.getUsername(refresh);
+        String hashedUserId = jwtUtil.getUserId(refresh);
         // 로그아웃 진행
-        refreshTokenService.removeRefreshToken(username);
+        refreshTokenService.removeRefreshToken(hashedUserId);
         Cookie cookie = new Cookie("refresh", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");

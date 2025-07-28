@@ -1,10 +1,10 @@
 package com.example.fittoserver.domain.auth.jwt;
 
+import com.example.fittoserver.domain.user.repository.UserRepository;
 import com.example.fittoserver.global.common.api.status.ErrorStatus;
+import com.example.fittoserver.global.common.util.HashIdUtil;
 import com.example.fittoserver.global.exception.GeneralException;
-import com.example.fittoserver.domain.user.UserEntity;
-import com.example.fittoserver.domain.auth.security.CustomUserDetails;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.example.fittoserver.domain.user.entity.UserEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,60 +15,57 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
+    private final HashIdUtil hashIdUtil;
+    private final UserRepository userRepository;
 
-    public JWTFilter(JWTUtil jwtUtil){
+    public JWTFilter(JWTUtil jwtUtil, HashIdUtil hashIdUtil, UserRepository userRepository) {
         this.jwtUtil = jwtUtil;
+        this.hashIdUtil = hashIdUtil;
+        this.userRepository = userRepository;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
-        // 헤더에서 Authorization 키에 담긴 토큰을 꺼냄
-        String authorizationHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-        // 헤더가 없거나 'Bearer '로 시작하지 않으면 필터 진행
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 'Bearer ' 이후의 토큰만 추출
-        String accessToken = authorizationHeader.substring(7);
+        String token = authHeader.substring(7);
 
-        // 토큰 만료 여부 확인, 만료시 예외 발생
-        try {
-            jwtUtil.isExpired(accessToken);
-        } catch (ExpiredJwtException e) {
+        if (!jwtUtil.isExpired(token)) {
             throw new GeneralException(ErrorStatus.ACCESS_TOKEN_EXPIRED);
         }
 
-        // 토큰이 access인지 확인 (발급 시 페이로드에 명시)
-        String category = jwtUtil.getCategory(accessToken);
-        if (!category.equals("access")) {
+        String category = jwtUtil.getCategory(token);
+        if (!"access".equals(category)) {
             throw new GeneralException(ErrorStatus.INVALID_ACCESS_TOKEN);
         }
 
-        //토큰에서 username과 role 획득
-        String username = jwtUtil.getUsername(accessToken);
-        String role = jwtUtil.getRole(accessToken);
+        String hashedUserId = jwtUtil.getUserId(token);
+        Long userId = hashIdUtil.decode(hashedUserId);
+        if (userId == null) {
+            throw new GeneralException(ErrorStatus.INVALID_ACCESS_TOKEN);
+        }
 
-        //userEntity를 생성하여 값 set
-        UserEntity userEntity = UserEntity.builder()
-                .username(username)
-                .role(role)
-                .build();
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
 
-        //UserDetails에 회원 정보 객체 담기 -> 스프링 시큐리티에서 요구하는 사용자 정보 형식을 따르기 위함
-        CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
-        //스프링 시큐리티 인증 토큰 생성
-        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-        //세션에 사용자 등록
+        Authentication authToken =
+                new UsernamePasswordAuthenticationToken(user, null, Collections.singleton(() -> user.getRole()));
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
     }
 }
+
