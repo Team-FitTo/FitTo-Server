@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 public class AuthResponseDTO {
     @Builder
     @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class SignUpRes {
         private Long memberId;
         private String createAt;
@@ -17,10 +15,17 @@ public class AuthResponseDTO {
 
     @Builder
     @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class LoginRes {
+        private String userId;
         private String access;
         private String refresh;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class LoginResult {
+        private AuthResponseDTO.LoginRes loginRes;
+        private String accessToken;
+        private String refreshToken;
     }
 }

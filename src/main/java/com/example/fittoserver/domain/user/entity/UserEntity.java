@@ -1,19 +1,15 @@
-package com.example.fittoserver.domain.user;
+package com.example.fittoserver.domain.user.entity;
 
 import com.example.fittoserver.global.common.entity.BaseEntity;
-import com.example.fittoserver.domain.user.enums.AccountStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @Builder
-@DynamicUpdate
-@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name = "users")
 public class UserEntity extends BaseEntity {
 
     @Id
@@ -23,10 +19,18 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private Long kakaoId;
 
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ROLE_USER'")
-    private String role;
+    @Column(nullable = false)
+    @Builder.Default
+    private String role = "ROLE_USER";
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
-    private AccountStatus accountStatus;
+    @Column(nullable = false)
+    @Builder.Default
+    private AccountStatus accountStatus = AccountStatus.ACTIVE;
+
+    public enum AccountStatus {
+        ACTIVE,         // 활성
+        INACTIVE,       // 비활성
+        LOCKED,         // 계정 잠김
+    }
 }

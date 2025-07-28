@@ -1,9 +1,7 @@
 package com.example.fittoserver.domain.user.converter;
 
-import com.example.fittoserver.domain.auth.dto.AuthRequestDTO;
 import com.example.fittoserver.domain.auth.dto.KakaoDTO;
-import com.example.fittoserver.domain.user.UserEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.fittoserver.domain.user.entity.UserEntity;
 
 public class UserConverter {
 

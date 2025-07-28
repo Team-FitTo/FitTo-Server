@@ -1,6 +1,6 @@
 package com.example.fittoserver.domain.user.repository;
 
-import com.example.fittoserver.domain.user.UserEntity;
+import com.example.fittoserver.domain.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
