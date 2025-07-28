@@ -5,8 +5,10 @@ import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
 import com.example.fittoserver.domain.auth.service.KakaoAuthService;
 import com.example.fittoserver.domain.auth.service.ReissueService;
 import com.example.fittoserver.global.common.api.ApiResponse;
+import com.example.fittoserver.global.common.util.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -27,11 +29,20 @@ public class AuthController {
 
     @Operation(summary = "카카오 로그인 및 회원가입")
     @PostMapping("/login/kakao")
-    public ApiResponse<AuthResponseDTO.LoginRes> loginWithKakao(@Valid @RequestBody AuthRequestDTO.LoginReq request) {
-        return ApiResponse.onSuccess(kakaoAuthService.kakaoLogin(request.getAccessCode()));
+    public ApiResponse<AuthResponseDTO.LoginRes> loginWithKakao(
+            @Valid @RequestBody AuthRequestDTO.LoginReq request,
+            HttpServletResponse response) {
+
+        AuthResponseDTO.LoginResult loginResult = kakaoAuthService.kakaoLogin(request.getAccessCode());
+
+        // 응답 생성
+        response.setHeader("Authorization", "Bearer " + loginResult.getAccessToken());
+        Cookie refreshCookie = CookieUtil.createCookie("refresh", loginResult.getRefreshToken());
+        response.addCookie(refreshCookie);
+        return ApiResponse.onSuccess(loginResult.getLoginRes());
     }
 
-    @Operation(summary = "토큰 재발행", description = "refresh=refreshToken Cookie 요청 (Swagger에서는 쿠키 테스트 불가능하므로 포스트맨 사용 권장)")
+    @Operation(summary = "토큰 재발행")
     @PostMapping("/reissue")
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
         return reissueService.reissue(request, response);
