@@ -49,7 +49,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         String category = jwtUtil.getCategory(token);
         if (!"access".equals(category)) {
-            throw new GeneralException(ErrorStatus.INVALID_ACCESS_TOKEN);
+            throw new GeneralException(ErrorStatus.TOKEN_CATEGORY_MISMATCH);
         }
 
         String hashedUserId = jwtUtil.getUserId(token);
@@ -59,7 +59,7 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
         UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
         Authentication authToken =
                 new UsernamePasswordAuthenticationToken(user, null, Collections.singleton(() -> user.getRole()));
