@@ -44,7 +44,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
         String refresh = refreshTokenService.extractRefreshToken(request);
         if (refresh == null) {
-            throw new GeneralException(ErrorStatus.INVALID_REFRESH_TOKEN); // Refresh Token이 없는 경우 예외 처리
+            throw new GeneralException(ErrorStatus.REFRESH_TOKEN_NOT_FOUND); // Refresh Token이 없는 경우 예외 처리
         }
         // 유효성 검사 및 예외 발생
         refreshTokenService.validateRefreshToken(refresh);
