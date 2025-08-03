@@ -1,11 +1,11 @@
 package com.example.fittoserver.domain.auth.util;
 
-import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
 import com.example.fittoserver.domain.auth.dto.KakaoDTO;
 import com.example.fittoserver.global.common.api.status.ErrorStatus;
 import com.example.fittoserver.global.exception.GeneralException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -18,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class KakaoUtil {
 
@@ -29,6 +30,8 @@ public class KakaoUtil {
     private String tokenUri;
     @Value("${spring.kakao.user-info-uri}")
     private String userInfoUri;
+
+    private final ObjectMapper objectMapper;
 
     public KakaoDTO.OAuthToken requestToken(String accessCode) {
         RestTemplate restTemplate = new RestTemplate();
@@ -48,8 +51,6 @@ public class KakaoUtil {
                 HttpMethod.POST,
                 kakaoTokenRequest,
                 String.class);
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         KakaoDTO.OAuthToken oAuthToken = null;
 
@@ -76,8 +77,6 @@ public class KakaoUtil {
                 HttpMethod.GET,
                 kakaoProfileRequest,
                 String.class);
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         KakaoDTO.KakaoProfile kakaoProfile = null;
 
