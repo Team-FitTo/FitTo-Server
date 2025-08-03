@@ -1,4 +1,4 @@
-package com.example.fittoserver.domain.auth.jwt;
+package com.example.fittoserver.global.security.jwt;
 
 import com.example.fittoserver.domain.user.repository.UserRepository;
 import com.example.fittoserver.global.common.api.status.ErrorStatus;

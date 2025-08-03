@@ -3,7 +3,7 @@ package com.example.fittoserver.domain.auth.service;
 import com.example.fittoserver.global.common.api.status.ErrorStatus;
 import com.example.fittoserver.global.exception.GeneralException;
 import com.example.fittoserver.global.common.util.RefreshUtil;
-import com.example.fittoserver.domain.auth.jwt.JWTUtil;
+import com.example.fittoserver.global.security.jwt.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

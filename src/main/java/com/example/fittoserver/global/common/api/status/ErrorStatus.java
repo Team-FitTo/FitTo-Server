@@ -24,9 +24,9 @@ public enum ErrorStatus implements BaseCode {
 // ========================
 // 401 Unauthorized
 // ========================
-    TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "401_000", "토큰이 만료되었습니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401_000", "인증되지 않은 사용자입니다."),
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "401_001", "유효하지 않은 토큰입니다."),
-    TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "401_002", "토큰이 존재하지 않습니다."),
+    TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "401_002", "토큰이 만료되었습니다."),
     TOKEN_CATEGORY_MISMATCH(HttpStatus.UNAUTHORIZED, "401_003", "토큰 형식이 일치하지 않습니다."),
     INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "401_004", "인증 정보가 올바르지 않습니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "401_005", "토큰이 생성되지 않았습니다."),
