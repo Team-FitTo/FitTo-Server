@@ -3,7 +3,7 @@ package com.example.fittoserver.domain.auth.service;
 import com.example.fittoserver.domain.auth.converter.AuthConverter;
 import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
 import com.example.fittoserver.domain.auth.dto.KakaoDTO;
-import com.example.fittoserver.domain.auth.jwt.JWTUtil;
+import com.example.fittoserver.global.security.jwt.JWTUtil;
 import com.example.fittoserver.domain.auth.util.KakaoUtil;
 import com.example.fittoserver.domain.user.entity.UserEntity;
 import com.example.fittoserver.domain.user.converter.UserConverter;
