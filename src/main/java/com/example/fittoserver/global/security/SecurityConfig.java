@@ -1,11 +1,14 @@
-package com.example.fittoserver.global.config;
+package com.example.fittoserver.global.security;
 
-import com.example.fittoserver.domain.auth.jwt.CustomLogoutFilter;
-import com.example.fittoserver.domain.auth.jwt.JWTFilter;
-import com.example.fittoserver.domain.auth.jwt.JWTUtil;
+import com.example.fittoserver.global.security.handler.JwtAccessDeniedHandler;
+import com.example.fittoserver.global.security.handler.JwtAuthenticationEntryPoint;
+import com.example.fittoserver.global.security.jwt.CustomLogoutFilter;
+import com.example.fittoserver.global.security.jwt.JWTFilter;
+import com.example.fittoserver.global.security.jwt.JWTUtil;
 import com.example.fittoserver.domain.auth.service.RefreshTokenService;
 import com.example.fittoserver.domain.user.repository.UserRepository;
 import com.example.fittoserver.global.common.util.HashIdUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,56 +21,40 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
     private final HashIdUtil hashIdUtil;
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
-
-    public SecurityConfig(JWTUtil jwtUtil, HashIdUtil hashIdUtil, UserRepository userRepository, RefreshTokenService refreshTokenService) {
-        this.jwtUtil = jwtUtil;
-        this.hashIdUtil = hashIdUtil;
-        this.userRepository = userRepository;
-        this.refreshTokenService = refreshTokenService;
-    }
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        //csrf disable
-        http
-                .csrf((auth) -> auth.disable());
-        //From 로그인 방식 disable
-        http
-                .formLogin((auth) -> auth.disable());
-        //http basic 인증 방식 disable
-        http
-                .httpBasic((auth) -> auth.disable());
-        //경로별 인가 작업
-        http
-                .authorizeHttpRequests((auth) -> auth
+        return http
+                .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
-                        .anyRequest().authenticated());
-        //JWT 검증 Filter 추가
-        http
-                .addFilterBefore(new JWTFilter(jwtUtil, hashIdUtil, userRepository), UsernamePasswordAuthenticationFilter.class);
-        // 로그아웃 필터
-        http
-                .addFilterBefore(new CustomLogoutFilter(refreshTokenService, jwtUtil), LogoutFilter.class);
-        //세션 설정
-        http
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        return http.build();
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                )
+                .addFilterBefore(new JWTFilter(jwtUtil, hashIdUtil, userRepository), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomLogoutFilter(refreshTokenService, jwtUtil), LogoutFilter.class)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
 }
