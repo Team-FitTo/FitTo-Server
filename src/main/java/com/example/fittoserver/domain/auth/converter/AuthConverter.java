@@ -18,4 +18,11 @@ public class AuthConverter {
                 .userId(hashedUserId)
                 .build();
     }
+
+    public static AuthResponseDTO.LoginWithAdminRes toLoginWithAdminRes(String accessToken, String refreshToken){
+        return AuthResponseDTO.LoginWithAdminRes.builder()
+                .access(accessToken)
+                .refresh(refreshToken)
+                .build();
+    }
 }

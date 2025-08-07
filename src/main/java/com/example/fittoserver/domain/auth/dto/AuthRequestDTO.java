@@ -12,4 +12,11 @@ public class AuthRequestDTO {
         @NotEmpty
         private String accessCode;
     }
+
+    @Getter
+    public static class LoginWithAdminReq{
+
+        @NotEmpty
+        private String adminKey;
+    }
 }

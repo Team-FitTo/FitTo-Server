@@ -31,6 +31,9 @@ spring:
 hashid:
   salt: fitto
 
+admin:
+  login-key: SUPER_SECRET_DEV_ADMIN_KEY
+
 springdoc:
   show-login-endpoint: true
 
