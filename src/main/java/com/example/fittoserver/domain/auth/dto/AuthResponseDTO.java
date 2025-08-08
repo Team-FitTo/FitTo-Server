@@ -15,10 +15,15 @@ public class AuthResponseDTO {
 
     @Builder
     @Getter
-    public static class LoginRes {
-        private String userId;
+    public static class LoginWithAdminRes {
         private String access;
         private String refresh;
+    }
+
+    @Builder
+    @Getter
+    public static class LoginRes {
+        private String userId;
     }
 
     @Getter

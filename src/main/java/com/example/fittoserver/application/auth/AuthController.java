@@ -2,6 +2,7 @@ package com.example.fittoserver.application.auth;
 
 import com.example.fittoserver.domain.auth.dto.AuthRequestDTO;
 import com.example.fittoserver.domain.auth.dto.AuthResponseDTO;
+import com.example.fittoserver.domain.auth.service.AdminService;
 import com.example.fittoserver.domain.auth.service.KakaoAuthService;
 import com.example.fittoserver.domain.auth.service.ReissueService;
 import com.example.fittoserver.global.common.api.ApiResponse;
@@ -26,6 +27,7 @@ public class AuthController {
 
     private final ReissueService reissueService;
     private final KakaoAuthService kakaoAuthService;
+    private final AdminService adminService;
 
     @Operation(summary = "카카오 로그인 및 회원가입")
     @PostMapping("/login/kakao")
@@ -40,6 +42,14 @@ public class AuthController {
         Cookie refreshCookie = CookieUtil.createCookie("refresh", loginResult.getRefreshToken());
         response.addCookie(refreshCookie);
         return ApiResponse.onSuccess(loginResult.getLoginRes());
+    }
+
+    @Operation(summary = "관리자 로그인")
+    @PostMapping("/login/admin")
+    public ApiResponse<AuthResponseDTO.LoginWithAdminRes> loginWithAdmin(
+            @Valid @RequestBody AuthRequestDTO.LoginWithAdminReq request,
+            HttpServletResponse response) {
+        return ApiResponse.onSuccess(adminService.loginWithAdmin(request));
     }
 
     @Operation(summary = "토큰 재발행")
